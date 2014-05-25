@@ -3,7 +3,7 @@ package server;
 public class DataParser {
 	private final int HEAD_SIZE = 4;
 	public String pasingHeader(String line) {
-		String header = null;
+		String header = "";
 		if(line.length() >= HEAD_SIZE) {
 			header = line.substring(0, HEAD_SIZE);
 		}
@@ -11,7 +11,7 @@ public class DataParser {
 	}
 	
 	public String pasingContents(String line) {
-		String Contents = null;
+		String Contents = "";
 		if(line.length() > HEAD_SIZE) {
 			Contents = line.substring(HEAD_SIZE+1);
 		}

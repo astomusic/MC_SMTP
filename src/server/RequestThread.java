@@ -32,18 +32,24 @@ public class RequestThread extends Thread {
 			String reciever = "";
 			String data = "";	
 			
-			while(line != null) {
+			while(true) {
 				String header = parser.pasingHeader(line);
 				String contents = parser.pasingContents(line);
 				System.out.println("S : " + line);
 				if(header.equals("MAIL")) {
 					sender = contents;
 					System.out.println("R : 250 OK");
+					bw.write("250 OK" + NEWLINE);
+					bw.flush();
 				} else if (header.equals("RCPT")) {
 					reciever = contents;
 					System.out.println("R : 250 OK");
+					bw.write("250 OK" + NEWLINE);
+					bw.flush();
 				} else if (header.equals("DATA")) {
 					System.out.println("R : 354 Start mail input; end with <CRLF>.<CRLF>");
+					bw.write("354 Start mail input; end with <CRLF>.<CRLF>" + NEWLINE);
+					bw.flush();
 					line = br.readLine();
 					while(!line.equals("<CRLF>.<CRLF>")){
 						System.out.println("S : " + line);
@@ -53,13 +59,15 @@ public class RequestThread extends Thread {
 					}
 					System.out.println("S : " + line);
 					System.out.println("R : 250 OK");
+					bw.write("250 OK" + NEWLINE);
+					bw.flush();
 					break;
-				}
+				} 
 				line = br.readLine();
 			}
 			
 			String fileName = reciever + time + ".txt";
-			System.out.println("fileName : " + fileName);
+			System.out.println("Save File - FileName : " + fileName);
 			String mail = sender + NEWLINE + reciever + NEWLINE + data;
 			
 			BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
