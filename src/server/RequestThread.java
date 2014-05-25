@@ -53,11 +53,13 @@ public class RequestThread extends Thread {
 					}
 					System.out.println("S : " + line);
 					System.out.println("R : 250 OK");
+					break;
 				}
 				line = br.readLine();
 			}
 			
 			String fileName = reciever + time + ".txt";
+			System.out.println("fileName : " + fileName);
 			String mail = sender + NEWLINE + reciever + NEWLINE + data;
 			
 			BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
