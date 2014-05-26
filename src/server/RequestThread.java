@@ -61,8 +61,13 @@ public class RequestThread extends Thread {
 					System.out.println("R : 250 OK");
 					bw.write("250 OK" + NEWLINE);
 					bw.flush();
+				}
+				if(!sender.isEmpty() && !reciever.isEmpty() && !data.isEmpty()) {
+					System.out.println("R : SEND MAIL");
+					bw.write("SEND MAIL" + NEWLINE);
+					bw.flush();
 					break;
-				} 
+				}
 				line = br.readLine();
 			}
 			
